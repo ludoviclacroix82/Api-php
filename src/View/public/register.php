@@ -17,8 +17,11 @@ $userAdd = isset($_SESSION['user']);
     <div class="row justify-content-center align-items-center">
         <div class="col-md-8">
             <div class="card">
+                <div class="card-header">
+                    Formulaire d'inscription
+                </div>
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Formulaire d'inscription</h2>
+
                     <form action="register/add" method="POST">
                         <?php if (!empty($userSession) || !empty($emailSession) || !empty($pwdSession)) : ?>
                             <div class="alert alert-danger" role="alert">
