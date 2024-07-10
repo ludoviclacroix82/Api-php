@@ -1,21 +1,45 @@
 <?php
+session_start();
+
 require_once 'src/vendor/autoload.php';
 
 // Utilisation du Router
 use Api\Routes\Router;
-use Api\Controller\PostController;
 use Api\config\Database;
+use Api\Controller\PostController;
+use Api\Controller\AuthController;
 
 require_once 'src/config/config.php';
 require_once 'src/helpers/request.php';
 
     $router = new Router;
+
+    $router->get('/',function(){
+        $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+        (new AuthController('','',$db))->register();
+    });
+
+    // Register //
+
+    $router->get('/register',function(){
+        $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+        (new AuthController('','',$db))->register();
+    });
+
+    $router->post('/register/add',function(){
+        $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+        (new AuthController('','',$db))->checkRegister();
+    });
+
+     // Post request //
+
     $router->get('/posts/:key', function ($key) {
         $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
         $posts = (new Postcontroller($db))->getPosts($key);
         print_r($posts);
         exit;
     });
+
     $router->get('/post/:id/:key', function ($id,$key) {
         $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
         $post = (new Postcontroller($db))->getPost($id,$key);

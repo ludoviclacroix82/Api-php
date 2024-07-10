@@ -12,7 +12,9 @@
             "email": "ludovic.lacroix82@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "twbs/bootstrap": "^5.3"
+    },
     "config": {
         "vendor-dir": "src/vendor"
     }

@@ -55,8 +55,9 @@ class Router
                 }
             }
         } catch (\Throwable $th) {
-            $response = (new Status(404,Status::NOFOUND_404))->status(404, Status::NOFOUND_404);
+            $response = (new Status(404,Status::NOFOUND_404))->status();
             print_r($response);
+            echo $th;
             exit;
         }
     }
