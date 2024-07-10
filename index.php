@@ -15,9 +15,6 @@ require_once 'src/helpers/request.php';
 
 $router = new Router;
 
-// $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
-// $chekUser = (new User())->checkUser();
-
 $router->get('/', function () {
     $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
     (new AuthController('', '', $db))->register();
