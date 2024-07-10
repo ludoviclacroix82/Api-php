@@ -12,5 +12,8 @@
             "email": "ludovic.lacroix82@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "config": {
+        "vendor-dir": "src/vendor"
+    }
 }
