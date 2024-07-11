@@ -8,7 +8,7 @@ require_once 'src/View/public/includes/header.php';
         <!-- Sidebar -->
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-            <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-secondary">
+                <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-secondary">
                     Navigation
                 </h5>
                 <ul class="nav flex-column mb-2">
@@ -46,7 +46,7 @@ require_once 'src/View/public/includes/header.php';
         <!-- Content -->
         <main role="main" class="col-md-10 ml-sm-auto px-4">
             <div class="pt-3 pb-2 mb-3 border-bottom">
-            <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-secondary">Dashboard</h3>
+                <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-secondary">Dashboard</h3>
             </div>
 
             <div class="row">
@@ -59,11 +59,11 @@ require_once 'src/View/public/includes/header.php';
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <h5 class="card-title">Name</h5>
+                                    <h5 class="card-title"><?= $datas['userDatas'][0]['name'] ?></h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>User:</strong> User</p>
-                                    <p><strong>Email:</strong> Email</p>
+                                    <p><strong>User:</strong> <?= $datas['userDatas'][0]['user'] ?></p>
+                                    <p><strong>Email:</strong> <?= $datas['userDatas'][0]['user'] ?></p>
                                 </div>
                             </div>
                         </div>
@@ -73,14 +73,32 @@ require_once 'src/View/public/includes/header.php';
                 <!-- Settings Section -->
                 <div class="col-md-6">
                     <div class="card mb-3">
-                        <div class="card-header">
-                            Keys Api
-                        </div>
-                        <div class="card-body">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Keys Api</span>
+                        <button class="btn btn-primary mb-0 btn-sm">Générer Key</button>
+                    </div>
+                        <div class="card-body">                        
+                            <table class="table table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">key</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($datas['userKeys'] as $key) : ?>
+                                        <tr>
+                                            <td><?= $key['id'] ?></td>
+                                            <td><?= $key['api_key'] ?></td>
+                                            <td> </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
         </main>
 
         <!-- End Content -->

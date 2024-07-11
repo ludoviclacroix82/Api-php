@@ -92,4 +92,12 @@ class User
             return (new Status(400, Status::BADREQUEST_400))->status();
         }
     }
+    public function getUser()
+    {
+        $params = [
+            ':user' => $this->user,
+        ];
+        $userData = $this->database->query('SELECT * FROM user WHERE BINARY user = :user', $params);
+        return $userData;        
+    }
 }

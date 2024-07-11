@@ -10,9 +10,9 @@ class ApiKeys
 
     private Database $database;
 
-    public string $key;
+    public ?string $key;
 
-    public function __construct(string $key,Database $database)
+    public function __construct(?string $key,Database $database)
     {
         $this->key = $key;
         $this->database = $database;
@@ -27,6 +27,22 @@ class ApiKeys
                 ':apikey' => securityInput($this->key),
             ];
            $apiKey = $this->database->query('SELECT * FROM api_keys WHERE api_key = :apikey',$params);
+            return $apiKey;
+
+        } catch (\Throwable $th) {
+            return (new Status(400,Status::BADAPIKEYS_400))->status();
+        }
+    }
+
+    public function userKeys($iduser)
+    {
+
+        try {
+
+            $params = [
+                ':idUser' => securityInput($iduser),
+            ];
+           $apiKey = $this->database->query('SELECT * FROM api_keys WHERE id_user = :idUser',$params);
             return $apiKey;
 
         } catch (\Throwable $th) {

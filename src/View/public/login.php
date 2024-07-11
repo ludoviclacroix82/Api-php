@@ -2,6 +2,7 @@
 $title = 'Login';
 require_once 'includes/header.php';
 
+$userSession = isset($_SESSION['Auth'])?$_SESSION['Auth']:'';
 ?>
 <div class="container py-5 custom-container">
     <div class="row justify-content-center">
