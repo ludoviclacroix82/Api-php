@@ -2,7 +2,6 @@
 $title = 'Login';
 require_once 'includes/header.php';
 
-$userSession = isset($_SESSION['Auth']) ? $_SESSION['Auth'] : '';
 ?>
 <div class="container py-5 custom-container">
     <div class="row justify-content-center">
@@ -12,13 +11,13 @@ $userSession = isset($_SESSION['Auth']) ? $_SESSION['Auth'] : '';
                     Connexion
                 </div>
                 <div class="card-body">
-                    <?php if (!empty($userSession) &&  $userSession === 1 ) :
+                    <?php if (!empty($userSession) &&  $userSession === 1) :
                         unset($_SESSION['Auth']);
                     ?>
                         <div class="alert alert-success" role="alert">
                             The connection succeeded
                         </div>
-                    <?php elseif(!empty($userSession) && $userSession === 'false')  : ?>
+                    <?php elseif (!empty($userSession) && $userSession === 'false') : ?>
                         <div class="alert alert-danger" role="alert">
                             The connection failed
                         </div>
@@ -45,7 +44,8 @@ $userSession = isset($_SESSION['Auth']) ? $_SESSION['Auth'] : '';
             </div>
         </div>
     </div>
-    <script defer src="/assets/js/passwordToogle.js"></script>
-    <?php
-    require_once 'includes/footer.php';
-    ?>
+</div>
+<script defer src="/assets/js/passwordToogle.js"></script>
+<?php
+require_once 'includes/footer.php';
+?>

@@ -8,7 +8,7 @@ use Api\Routes\Router;
 use Api\config\Database;
 use Api\Controller\PostController;
 use Api\Controller\AuthController;
-use Api\Models\User;
+use Api\Controller\ProfileController;
 
 require_once 'src/config/config.php';
 require_once 'src/helpers/request.php';
@@ -16,7 +16,7 @@ require_once 'src/helpers/request.php';
 $router = new Router;
 
 $router->get('/', function () {
-    $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+    $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST); // imposible de l'appelr une seul fois pour tous les route ???
     (new AuthController('', '', $db))->index();
 });
 // login //
@@ -33,7 +33,11 @@ $router->get('/logout', function () {
     (new AuthController('', '', $db))->logout();
 });
 
-
+// Profil //
+$router->get('/dashboard', function () {
+    $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+    (new ProfileController('', $db))->index();
+});
 // Register //
 
 $router->get('/register', function () {

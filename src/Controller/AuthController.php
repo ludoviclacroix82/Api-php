@@ -4,9 +4,12 @@ namespace Api\Controller;
 use Api\config\Database;
 use Api\Models\User;
 use Api\Models\Status;
+use Api\Trait\ProtectPage;
 
 class AuthController
 {
+    use ProtectPage;
+
     private Database $database;
     protected ?string $user;
     protected ?string $password;
@@ -97,12 +100,5 @@ class AuthController
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
         }
-    }
-
-    public function isLogin(){
-        $userLogin = isset($_SESSION['username']) ? $_SESSION['username'] : '';
-
-        return (new User('',$userLogin,'', $this->database))->checkUserName();        
-
     }
 }
