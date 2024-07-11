@@ -17,7 +17,7 @@ $router = new Router;
 
 $router->get('/', function () {
     $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
-    (new AuthController('', '', $db))->register();
+    (new AuthController('', '', $db))->index();
 });
 // login //
 $router->get('/login', function () {
@@ -28,6 +28,12 @@ $router->post('/login/check', function () {
     $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
     (new AuthController('', '', $db))->login();
 });
+$router->get('/logout', function () {
+    $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+    (new AuthController('', '', $db))->logout();
+});
+
+
 // Register //
 
 $router->get('/register', function () {
@@ -37,7 +43,7 @@ $router->get('/register', function () {
 
 $router->post('/register/add', function () {
     $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
-    (new AuthController('', '',$db))->checkRegister();
+    (new AuthController('', '', $db))->checkRegister();
 });
 
 // Post request //

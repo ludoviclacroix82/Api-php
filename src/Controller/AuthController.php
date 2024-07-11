@@ -1,5 +1,4 @@
 <?php
-
 namespace Api\Controller;
 
 use Api\config\Database;
@@ -22,8 +21,11 @@ class AuthController
      * Page login
      */
     public function index()
-    {
-        require_once 'src/View/public/login.php';
+    {           
+        if ($this->isLogin()) 
+            header('Location:/dashboard');
+        else
+            require_once 'src/View/public/login.php';
     }
 
     public function login()
@@ -38,15 +40,20 @@ class AuthController
             if ($addUser)
                 $_SESSION['Auth'] = true;
             else
-                $_SESSION['Auth'] = false;
+                $_SESSION['Auth'] = 'false';
 
             header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }
 
+    public function logout()
+    {
+        unset($_SESSION['username']);
+        return header('Location:/');
+    }
+
     public function register()
     {
-
         require_once 'src/View/public/register.php';
     }
 
@@ -90,5 +97,12 @@ class AuthController
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
         }
+    }
+
+    public function isLogin(){
+        $userLogin = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+
+        return (new User('',$userLogin,'', $this->database))->checkUserName();        
+
     }
 }

@@ -1,3 +1,6 @@
+<?php 
+$userLogin = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,12 +36,15 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <?php if(!$userLogin ): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
+                    <?php else :?>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

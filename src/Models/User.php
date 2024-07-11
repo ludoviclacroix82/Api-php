@@ -58,7 +58,29 @@ class User
             ];
             $userData = $this->database->query('SELECT * FROM user WHERE BINARY user = :user', $params);
 
-            if (password_verify($this->password, $userData[0]['password'])) {
+            if ($userData  && password_verify($this->password, $userData[0]['password'])) {
+
+                $_SESSION['username'] = $userData[0]['user'];
+                return true;
+
+            }else{
+                return false;
+            }
+        } catch (\Throwable $th) {
+            return (new Status(400, Status::BADREQUEST_400))->status();
+        }
+    }
+
+    public function checkUserName()
+    {
+        try {
+
+            $params = [
+                ':user' => $this->user,
+            ];
+            $userData = $this->database->query('SELECT name,user FROM user WHERE BINARY user = :user', $params);
+
+            if ($userData) {
 
                 $_SESSION['username'] = $userData[0]['user'];
                 return true;
