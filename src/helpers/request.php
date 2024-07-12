@@ -31,3 +31,7 @@ function securityInput($data)
     $data = htmlspecialchars($data);
     return $data;
 }
+
+function generateApiKey($length = 32) {
+    return bin2hex(random_bytes($length / 2));
+}

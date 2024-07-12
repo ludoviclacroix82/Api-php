@@ -23,7 +23,7 @@ class Postcontroller
         try {
             $apiKeyExist = (new ApiKeys($key, $this->database))->isExist($key);
 
-            if ($apiKeyExist) {
+            if ($apiKeyExist && $apiKeyExist[0]['active'] === 1) {
                 $postsData = $this->database->query('SELECT * FROM posts');
                 $datas = Posts::loadData($postsData);
                 //demande a Pierre si pas d'autre solution qu'une method static
@@ -35,7 +35,10 @@ class Postcontroller
                     return (new Status(404, Status::NOFOUNDPOST_404, null))->status();
                 }
             } else {
-                return (new Status(400, Status::BADAPIKEYS_400))->status();
+                if ($apiKeyExist && $apiKeyExist[0]['active'] === 0)
+                    return (new Status(400, Status::APIKEYNOACTIVE_400))->status();
+                else
+                    return (new Status(400, Status::BADAPIKEYS_400))->status();
             }
         } catch (\Throwable $th) {
             return (new Status(404, Status::NOFOUND_404))->status();
@@ -52,7 +55,7 @@ class Postcontroller
 
             $apiKeyExist = (new ApiKeys($key, $this->database))->isExist($key);
 
-            if ($apiKeyExist) {
+            if ($apiKeyExist && $apiKeyExist[0]['active'] === 1) {
 
                 $params = [
                     ':id' => securityInput($id),
@@ -67,7 +70,10 @@ class Postcontroller
                     return (new Status(404, Status::NOFOUNDPOST_404, null))->status();
                 }
             } else {
-                return (new Status(400, Status::BADAPIKEYS_400))->status();
+                if ($apiKeyExist && $apiKeyExist[0]['active'] === 0)
+                    return (new Status(400, Status::APIKEYNOACTIVE_400))->status();
+                else
+                    return (new Status(400, Status::BADAPIKEYS_400))->status();
             }
         } catch (\Throwable $th) {
             return (new Status(404, Status::NOFOUNDPOST_404, null))->status();
@@ -79,7 +85,7 @@ class Postcontroller
         try {
             $apiKeyExist = (new ApiKeys($key, $this->database))->isExist($key);
 
-            if ($apiKeyExist) {
+            if ($apiKeyExist && $apiKeyExist[0]['active'] === 1) {
                 $params = Posts::dataBodyInsert();
                 $postInsert = $this->database->query(
                     'INSERT INTO posts(
@@ -99,7 +105,10 @@ class Postcontroller
 
                 return (new Status(201, Status::CREATED_201, $params))->status(2);
             } else {
-                return (new Status(400, Status::BADAPIKEYS_400))->status();
+                if ($apiKeyExist && $apiKeyExist[0]['active'] === 0)
+                    return (new Status(400, Status::APIKEYNOACTIVE_400))->status();
+                else
+                    return (new Status(400, Status::BADAPIKEYS_400))->status();
             }
         } catch (\Throwable $th) {
             return (new Status(400, Status::BADREQUEST_400))->status();
@@ -113,7 +122,7 @@ class Postcontroller
 
             $apiKeyExist = (new ApiKeys($key, $this->database))->isExist($key);
 
-            if ($apiKeyExist) {
+            if ($apiKeyExist && $apiKeyExist[0]['active'] === 1) {
 
                 $id = securityInput($id);
 
@@ -139,7 +148,10 @@ class Postcontroller
                     return (new Status(404, Status::NOFOUNDPOST_404, null))->status();
                 }
             } else {
-                return (new Status(400, Status::BADAPIKEYS_400))->status();
+                if ($apiKeyExist && $apiKeyExist[0]['active'] === 0)
+                    return (new Status(400, Status::APIKEYNOACTIVE_400))->status();
+                else
+                    return (new Status(400, Status::BADAPIKEYS_400))->status();
             }
         } catch (\Throwable $th) {
             return (new Status(400, Status::BADREQUEST_400))->status();
@@ -152,7 +164,7 @@ class Postcontroller
 
             $apiKeyExist = (new ApiKeys($key, $this->database))->isExist($key);
 
-            if ($apiKeyExist) {
+            if ($apiKeyExist && $apiKeyExist[0]['active'] === 1){
                 $postExist = $this->postExist($id);
                 if ($postExist) {
 
@@ -171,7 +183,10 @@ class Postcontroller
                     return (new Status(404, Status::NOFOUNDPOST_404, null))->status();
                 }
             } else {
-                return (new Status(400, Status::BADAPIKEYS_400))->status();
+                if ($apiKeyExist && $apiKeyExist[0]['active'] === 0)
+                    return (new Status(400, Status::APIKEYNOACTIVE_400))->status();
+                else
+                    return (new Status(400, Status::BADAPIKEYS_400))->status();
             }
         } catch (\Throwable $th) {
             return (new Status(400, Status::BADREQUEST_400))->status();

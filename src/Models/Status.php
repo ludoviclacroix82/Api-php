@@ -9,6 +9,7 @@ class Status
     const OK_202 = 'OK';
     const NOFOUNDPOST_404 = 'no post found';
     const BADAPIKEYS_400 = 'Bad APi Keys';
+    const APIKEYNOACTIVE_400 = 'APi Keys no actived';
     const NOFOUND_404 = 'no found';
     const CREATED_201 = 'Created';
     const BADREQUEST_400 = 'Bad Request';

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $userLogin = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 ?>
 <!DOCTYPE html>
@@ -31,19 +31,21 @@ $userLogin = isset($_SESSION['username']) ? $_SESSION['username'] : '';
                     <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">Dashboard</a>
-                    </li>
+                    <?php if ($userLogin) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <?php if(!$userLogin ): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <?php else :?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
+                    <?php if (!$userLogin) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login"><i class="fas fa-user-alt"></i>Login</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                        </li>
                     <?php endif; ?>
                 </ul>
             </div>

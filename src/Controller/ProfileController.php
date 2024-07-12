@@ -30,16 +30,50 @@ class ProfileController
         if ($this->isLogin()) {
 
             $dataUser = (new User('', $userLogin, '', $this->database))->getUser();
-            $userKeys = (new ApiKeys('',$this->database))->userKeys($dataUser[0]['id']);
+            $userKeys = (new ApiKeys('', $this->database))->userKeys($dataUser[0]['id']);
 
             $datas = [
                 'userDatas' => $dataUser,
                 'userKeys' => $userKeys
             ];
 
-            require_once 'src/View/public/Profile/dashboard.php';          
+            require_once 'src/View/public/Profile/dashboard.php';
 
             return $datas;
+        } else {
+            header('Location:/login');
+        }
+    }
+
+    public function postApiKey()
+    {
+        $userLogin = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+
+        if ($this->isLogin()) {
+            $dataUser = (new User('', $userLogin, '', $this->database))->getUser();
+            $apiKey = (new ApiKeys('', $this->database))->createKeyApi($dataUser[0]['id']);
+
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+        } else {
+            header('Location:/login');
+        }
+    }
+
+    public function putApiKey($idKey,$active)
+    {
+
+        if ($this->isLogin()) {
+
+            $updatekey = (new ApiKeys('', $this->database))->activeApiKey($idKey,$active);
+
+        } else {
+            header('Location:/login');
+        }
+    }
+    public function deleteApiKey($idKey){
+        if ($this->isLogin()) {
+
+            $dletekey = (new ApiKeys('', $this->database))->deleteApiKey($idKey);
 
         } else {
             header('Location:/login');

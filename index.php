@@ -38,6 +38,20 @@ $router->get('/dashboard', function () {
     $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
     (new ProfileController('', $db))->index();
 });
+
+$router->get('/dashboard/api/createKey', function(){
+    $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+    (new ProfileController('', $db))->postApiKey();
+});
+
+$router->get('/dashboard/api/updateKey/:idKey/:active', function($idKey,$active){
+    $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+    (new ProfileController('', $db))->putApiKey($idKey,$active);
+});
+$router->get('/dashboard/api/deleteKey/:idKey', function($idKey){
+    $db = new Database(DB_NAME, DB_USER, DB_PASS, DB_HOST);
+    (new ProfileController('', $db))->deleteApiKey($idKey);
+});
 // Register //
 
 $router->get('/register', function () {

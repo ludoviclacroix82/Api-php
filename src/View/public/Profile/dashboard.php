@@ -39,17 +39,14 @@ require_once 'src/View/public/includes/header.php';
                 </ul>
             </div>
         </nav>
-
-
         <!-- End Sidebar -->
-
         <!-- Content -->
-        <main role="main" class="col-md-10 ml-sm-auto px-4">
+        <main role="main" class="col-md-10 ml-sm-auto px-4 min-vh-90">
             <div class="pt-3 pb-2 mb-3 border-bottom">
                 <h3 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-secondary">Dashboard</h3>
             </div>
 
-            <div class="row">
+            <div class="row ">
                 <!-- Profile Section -->
                 <div class="col-md-6">
                     <div class="card mb-3">
@@ -73,25 +70,36 @@ require_once 'src/View/public/includes/header.php';
                 <!-- Settings Section -->
                 <div class="col-md-6">
                     <div class="card mb-3">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>Keys Api</span>
-                        <button class="btn btn-primary mb-0 btn-sm">Générer Key</button>
-                    </div>
-                        <div class="card-body">                        
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Keys Api</span>
+                            <button class="btn btn-primary mb-0 btn-sm">
+                                <a href='/dashboard/api/createKey' class="text-decoration-none text-white">Générer Key</a>
+                            </button>
+                        </div>
+                        <div class="card-body">
                             <table class="table table-striped">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">id</th>
                                         <th scope="col">key</th>
+                                        <th scope="col">Activation</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($datas['userKeys'] as $key) : ?>
+                                    <?php foreach ($datas['userKeys'] as $key) : 
+                                        $checked = ($key['active'] === 1)?'checked':'';
+                                    ?>
                                         <tr>
                                             <td><?= $key['id'] ?></td>
-                                            <td><?= $key['api_key'] ?></td>
-                                            <td> </td>
+                                            <td ><?= $key['api_key'] ?></td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="switch<?= $key['id'] ?>" <?= $checked ;?>>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-delete-api btn-sm" id="delete<?= $key['id'] ?>">Delete</button></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -104,6 +112,7 @@ require_once 'src/View/public/includes/header.php';
         <!-- End Content -->
     </div>
 </div>
+<script defer src="/assets/js/settingApiKey.js"></script>
 <?php
 require_once 'src/View/public/includes/footer.php';
 ?>
